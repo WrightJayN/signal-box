@@ -176,3 +176,9 @@ body.lens .lever { background: var(--soft); }
 body.lens .lever.on { background: #1E3A2A; }
 .pread { font-family: var(--mono); }
 @media (max-width: 560px) { .lrow { grid-template-columns: 1fr 1fr 1fr; } .lwho { grid-column: 1 / -1; } }
+
+/* title screen: link to the demo video */
+.title .demo { margin-top: 18px; }
+.title .demo a { color: var(--teal); font-weight: 800; text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
+.title .demo a:hover, .title .demo a:focus-visible { color: var(--fg); outline: none; }
+body.lens .title .demo a { color: var(--amber); }

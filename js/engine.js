@@ -88,6 +88,7 @@
       <div class="castrow">${(CFG.titleCast || Object.keys(CFG.cast).slice(0, 6)).map(c => `<img src="assets/${c}.svg" alt="${nm(c)}">`).join('')}</div>
       <p>${CFG.intro.replace('{lens}', esc(CFG.lensName))}</p>
       <div class="row">${fresh ? `<button class="btn" data-go="new">I am new to this</button><button class="btn alt" data-go="place">I know some already: placement test</button>` : `<button class="btn" data-go="map">Continue</button>`}</div>
+      ${CFG.demo ? `<p class="demo"><a href="${esc(CFG.demo.url)}" target="_blank" rel="noopener">▶ ${esc(CFG.demo.label)}</a></p>` : ''}
     </div>`, {
       new: () => { S.placed = true; save(); startLevel(0, 0); },
       place: placement, map: showMap

@@ -4,6 +4,7 @@ window.KT_CONFIG = {
   title: 'Signal Box',
   tagline: 'Learn Network Operating Systems Administration by running a railway from its signal box. CNS2002, Lectures 1 to 9.',
   intro: 'Every part of the railway stands for a real NOSA idea. Press <b>{lens}</b> (or the <b>L</b> key) at any time to redraw the screen with the real terms.',
+  demo: { url: 'https://youtu.be/JqRVXtLHbE0', label: 'Watch the 2-minute demo on YouTube' },   // link under the title screen buttons
   lensName: 'Schematic',
   lensTip: 'Redraw with the real terms (L)',
   mapName: 'Network map',
