@@ -2,6 +2,9 @@
 
 A browser game for **CNS2002 Network Operating Systems Administration** (Lectures 1 to 9). You run a railway from its signal box, and every part of the railway stands for a real NOSA idea. Press **Schematic** (or `L`) at any time to redraw the screen with the real terms.
 
+- **Play it:** https://wrightjayn.github.io/signal-box/
+- **Watch the demo (2:14):** https://youtu.be/JqRVXtLHbE0
+
 ## How to play
 
 Open `index.html` in any modern browser. There is nothing to install. Progress is saved in the browser on that device.
