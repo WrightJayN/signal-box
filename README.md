@@ -1,6 +1,6 @@
 # Signal Box
 
-A browser game for **CNS2002 Network Operating Systems Administration** (Lectures 1 to 9). You run a railway from its signal box, and every part of the railway stands for a real NOS idea. Press **Schematic** (or `L`) at any time to redraw the screen with the real terms.
+A browser game for **CNS2002 Network Operating Systems Administration** (Lectures 1 to 9). You run a railway from its signal box, and every part of the railway stands for a real NOSA idea. Press **Schematic** (or `L`) at any time to redraw the screen with the real terms.
 
 ## How to play
 

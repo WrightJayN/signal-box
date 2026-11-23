@@ -28,7 +28,7 @@ Storyboard is enabled, so stop before Stage 2 for explicit approval.
 
 A demo video made by a student for fellow CNS2002 students. It shows what Signal Box is, how one level plays from start to finish, and how the game helps with revision. The viewer should finish knowing what the game is, why the railway idea makes the concepts easier, and how to start playing.
 
-Signal Box is a browser game. The player runs a railway from its signal box, and every part of the railway is a NOS idea in disguise. The signal box is the SNMP manager. Trackside boxes are SNMP agents. The logbook office is log management. The depot is preventive and corrective maintenance. Trains are processes, and the siding is the background. A button called Schematic redraws every screen with the real terms.
+Signal Box is a browser game. The player runs a railway from its signal box, and every part of the railway is a NOSA idea in disguise. The signal box is the SNMP manager. Trackside boxes are SNMP agents. The logbook office is log management. The depot is preventive and corrective maintenance. Trains are processes, and the siding is the background. A button called Schematic redraws every screen with the real terms.
 
 Facts that may appear on screen, and no others:
 
@@ -61,10 +61,10 @@ Scenes:
 - Voiceover transcript:
 
 ## Scene 1: Hook (0:00–0:15)
-Network Operating Systems is full of words you can't picture. SNMP traps, octal permissions, SIGTERM. So I built a game where you can see them. This is Signal Box.
+Network Operating Systems Administration, or NOSA, is full of words you can't picture. SNMP traps, octal permissions, SIGTERM. So I built a game where you can see them. This is Signal Box.
 
 ## Scene 2: The idea (0:15–0:40)
-In Signal Box you run a railway, and every part of it is a NOS idea in disguise. The signal box is the SNMP manager. The trackside boxes are its agents. The logbook office is log management, the depot is preventive maintenance, and a train in a siding is a background process. Press Schematic, and every railway word flips to the term you'll see on the test.
+In Signal Box you run a railway, and every part of it is a NOSA idea in disguise. The signal box is the SNMP manager. The trackside boxes are its agents. The logbook office is log management, the depot is preventive maintenance, and a train in a siding is a background process. Press Schematic, and every railway word flips to the term you'll see on the test.
 
 ## Scene 3: One level, start to finish (0:40–1:25)
 Here's one level. Beacon runs the signal box, and seven messages travel along the wire. The box asks with GET, and the switch answers with RESPONSE. GETNEXT walks the MIB, GETBULK grabs a whole table, and SET changes a setting. When a router crosses a threshold, it sends a TRAP on its own, or an INFORM if it wants a reply. Then you sort who starts each message, the game reveals the real terms, and a three-question checkpoint earns you up to three stars.
@@ -134,7 +134,7 @@ A rounded sans for railway words and interface text. A monospace for real terms,
 
 # 6. INFORMATION DESIGN AND STORYTELLING
 
-1. The problem: NOS concepts are hard to picture.
+1. The problem: NOSA concepts are hard to picture.
 2. The idea: a railway where every service is one of those concepts.
 3. The proof: one level played from briefing to stars.
 4. The range: other puzzles, the console, the fast track and the mock tests.
