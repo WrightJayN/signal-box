@@ -1,0 +1,223 @@
+/* Worlds 1 to 3: Lectures 1 to 3 (basic system administration). Correct answer first; the engine shuffles. */
+(function () {
+  const { P } = window.KTH;
+  const L = (n, slide) => window.KTH.Q(`Lecture ${n} · ${slide}`);
+  window.KT_WORLDS = window.KT_WORLDS || [];
+
+  /* ---------------- World 1 · Lecture 1 ---------------- */
+  window.KT_WORLDS.push({
+    id: 1, name: 'The Network Map', guide: 'ada', week: 'Lecture 1', unit: 'Basic System Administration', topic: 'Types of OS, what a NOS is, its features and parts',
+    intro: 'Welcome to the signal box. Before you run [[the railway|the network]], learn what kind of [[control system|operating system]] runs each machine, and what makes a [[network control system|network operating system (NOS)]] different.',
+    outro: 'You can now tell the four kinds of OS apart and name the parts of a NOS.',
+    levels: [
+      { id: '1.1', n: 'Four kinds of control', k: 't', L: 'layman',
+        brief: [['ada', 'Every machine on the network has a [[control system|operating system]]. It manages the hardware, the processes, the memory and the security of the machine.'],
+          ['ada', 'The notes sort them into four kinds, by the machines they control and the jobs they support. Sort each machine into its kind.']],
+        pz: { type: 'sort', say: 'Which kind of operating system is this?', hint: 'One person doing one thing: single-user single-task. One person, many programs: single-user multi-task. Many people at once: multi-user. Machinery that must take exactly the same time every time: real-time.',
+          bins: ['Real-time (RTOS)', 'Single-user single-task', 'Single-user multi-task', 'Multi-user'],
+          items: [['A controller inside industrial machinery, a "black box" with almost no user interface', 0], ['A scientific instrument that must run an operation in exactly the same time, every time', 0],
+            ['MS-DOS', 1], ['Palm OS on a Palm handheld', 1], ['Microsoft Windows on a laptop', 2], ['Apple MacOS on a desktop', 2], ['Unix', 3], ['IBM AS400 mainframe OS', 3], ['VMS', 3]] },
+        rv: [['A controller that always takes the same time', 'Real-Time Operating System (RTOS)', 'Controls machinery, scientific instruments and industrial systems. Little user interface, no end-user utilities.'],
+          ['One person, one job at a time', 'Single-user single-task', 'MS-DOS and Palm OS.'],
+          ['One person, many programs at once', 'Single-user multi-task', 'Windows and MacOS: write a note, download a file and print at the same time.'],
+          ['Many people at once', 'Multi-user', 'Unix, VMS and mainframe OSs such as IBM AS400. A problem with one user must not affect the rest.']],
+        qz: [L(1, 'Real-Time Operating System')('What is the most important job of an RTOS?', 'An RTOS manages resources so an operation takes precisely the same time every time it occurs.', 'Making an operation take exactly the same time every time', 'Giving users a rich graphical interface', 'Letting many users log in at once', 'Running office software'),
+          L(1, 'Single-User Multi-Task')('Writing a note while a file downloads and an e-mail prints is an example of:', 'One user, several programs at the same time.', 'A single-user multi-task OS', 'A single-user single-task OS', 'A real-time OS', 'A distributed OS'),
+          L(1, 'Multi-User')('Which is an example of a multi-user operating system in the notes?', 'Unix, VMS and IBM AS400 are the notes\' examples.', 'IBM AS400', 'MS-DOS', 'Palm OS', 'Windows on a home laptop'),
+          L(1, 'Single-User Operating System')('In a single-user OS, which program loads the operating system onto the hardware during boot?', 'The bootloader loads the OS facilities into the superuser\'s account.', 'The bootloader', 'The shell', 'The device manager', 'The network manager')] },
+
+      { id: '1.2', n: 'Sharing the line', k: 't', L: 'bridge',
+        brief: [['ada', 'A [[shared control system|multi-user OS]] serves many people at the same time. The notes name two types.'], ['ada', 'Work through these cases and decide which type each one is.']],
+        pz: { type: 'pick', steps: [
+          P('Each user gets a very short [[slot on the line|span of CPU time]], so short that the work seems continuous. What type is this?', 'Each user gets a short slice of CPU time, so it looks continuous.', '[[Taking turns on the line|Time-sharing OS]]', '[[Far-away stations sharing resources|Distributed OS]]', 'Single-user single-task', 'Real-time OS'),
+          P('Users far away use resources held at a remote location, and many requests are handled and each satisfied eventually. What type is this?', 'This is the notes\' description of a distributed OS.', '[[Far-away stations sharing resources|Distributed OS]]', '[[Taking turns on the line|Time-sharing OS]]', 'Single-user multi-task', 'Real-time OS'),
+          P('Which of these do the notes give as a use of a distributed OS?', 'Electronic banking and multiplayer gaming apps.', 'Electronic banking', 'A Palm handheld', 'An industrial machine controller', 'MS-DOS on one PC'),
+          P('Which do the notes give as an example of time-sharing?', 'A mainframe where each user is given a specific time to complete their task.', 'A mainframe that gives each user a set time', 'A multiplayer gaming app', 'A laptop running Windows', 'A Palm handheld')] },
+        rv: [['Taking turns on the line', 'Time-sharing operating system', 'Each user gets a very short span of CPU time.'], ['Far-away stations sharing resources', 'Distributed operating system', 'Remote users share resources; used in e-banking and multiplayer games.']],
+        qz: [L(1, 'Multi-User Operating System')('What are the two types of multi-user OS?', 'Time-sharing and distributed.', 'Time-sharing and distributed', 'Real-time and batch', 'Peer to peer and client/server', 'Single-task and multi-task'),
+          L(1, 'Time-Sharing Operating System')('How long is a user\'s time slice in a time-sharing OS, as the notes describe it?', 'Very short (nanoseconds), so execution looks continuous.', 'Very short, so the work looks continuous', 'One hour per user', 'As long as the user needs', 'One day per user'),
+          L(1, 'Distributed Operating System')('A distributed OS divides resources so that:', 'Multiple requests can be handled and each satisfied eventually.', 'Many requests can be handled and each is satisfied eventually', 'Only one user can work at a time', 'Every operation takes exactly the same time', 'No network is needed')] },
+
+      { id: '1.3', n: 'Two ways to run a network', k: 't', L: 'bridge',
+        brief: [['ada', 'A [[network control system|NOS]] provides services to clients over a network. It comes in two models.'],
+          ['ada', 'In one, every station shares with every other as an equal. In the other, a central hub, the [[main station|dedicated file server]], serves everyone.']],
+        pz: { type: 'sort', say: 'Peer to peer or client/server?', hint: 'Equal privileges and sharing from your own workstation means peer to peer. A centre hub that holds the functions means client/server.',
+          bins: ['Peer to peer', 'Client/server'],
+          items: [['Designed for small to medium LANs', 0], ['Every computer has equal privileges on the network', 0], ['Users share files from their own workstation', 0],
+            ['Functions and applications sit on a centre hub', 1], ['The hub is known as the dedicated file server', 1], ['Many users share the same resources from different places through the hub', 1]] },
+        rv: [['Stations swapping directly', 'Peer-to-peer NOS', 'For small to medium LANs. All computers have equal privileges.'], ['Everyone goes through the main station', 'Client/server NOS', 'The centre hub (dedicated file server) provides the functions.']],
+        qz: [L(1, 'Network Operating System')('In a client/server NOS, the centre hub is called the:', 'The notes call it the dedicated file server.', 'Dedicated file server', 'Peer', 'Bootloader', 'Device manager'),
+          L(1, 'Network Operating System')('Which model gives all computers equal privileges?', 'In peer to peer, every system has equal privileges.', 'Peer to peer', 'Client/server', 'Time-sharing', 'Real-time'),
+          L(1, 'Network Operating System')('What does a NOS do?', 'It provides services to clients over a network.', 'Provides services to clients over a network', 'Controls one machine with no network', 'Only runs games', 'Only manages a printer cable'),
+          L(1, 'Network Operating System')('Peer to peer NOS is designed especially for:', 'Small to medium local area networks.', 'Small to medium LANs', 'Very large WANs only', 'Single computers with no network', 'Industrial machinery')] },
+
+      { id: '1.4', n: 'The control-room crew', k: 't', L: 'bridge',
+        brief: [['ada', 'Five crew members keep a NOS running. Match each one to its job.']],
+        pz: { type: 'match', say: 'Pick a component, then its job.', hint: 'Scheduler: CPUs. Memory manager: demand paging. Device manager: list of connected devices. Storage manager: files. Network manager: connections.',
+          pairs: [['CPU Scheduler', 'Keeps the CPUs busy; decides when and how long a thread runs'], ['Memory Manager', 'Demand paging, virtual memory, memory for programs and kernel'],
+            ['Device Manager', 'Keeps a list of connected devices and controls information flow to them'], ['Storage Manager', 'The system file manager: files and their access privileges'],
+            ['Network Manager', 'Keeps network connectivity active: Ethernet, WiFi, WWAN, PPPoE, VPN']] },
+        rv: [['The crew', 'Components of a NOS', 'CPU scheduler, memory manager, device manager, storage manager, network manager.'],
+          ['A request to the control room', 'System call', 'The interface between a process and the world outside its memory: a request for service from the OS.']],
+        qz: [L(1, 'Components of NOS')('Which component contains demand paging and virtual memory?', 'The memory manager.', 'Memory manager', 'CPU scheduler', 'Device manager', 'Network manager'),
+          L(1, 'Components of NOS')('The storage manager is also known as the:', 'System file manager.', 'System file manager', 'Device driver', 'Bootloader', 'Dedicated file server'),
+          L(1, 'Components of NOS')('Which component provides VPN integration?', 'The network manager manages Ethernet, WiFi, WWAN and PPPoE, and integrates VPNs.', 'Network manager', 'Storage manager', 'Memory manager', 'CPU scheduler'),
+          L(1, 'Functions of NOS')('What is a system call?', 'A request for service from the operating system.', 'A request for service from the operating system', 'A phone call to the administrator', 'A type of virus', 'A printer queue')] },
+
+      { id: '1.5', n: 'Network inspection', k: 'b', L: 'technical',
+        brief: [['ada', 'The inspector is here. Answer every question about what a NOS must do. Snag grows with every mistake. Five and the inspection fails.']],
+        pz: { type: 'pick', steps: [
+          P('Managing which users use which printers, and how print jobs are queued, is a NOS:', 'It is one of the network duties the notes list.', 'Feature: access to remote printers', 'Component: memory manager', 'Type: real-time OS', 'Function: bootloading'),
+          P('Making remote resources such as the Internet seem local to the user means the network is ideally:', 'The notes say the network is ideally transparent to the user.', 'Transparent to the user', 'Visible at every step', 'Single-user', 'Real-time'),
+          P('Which protocol do the notes name as a basic network administration utility?', 'SNMP, the Simple Network Management Protocol.', 'SNMP', 'FTP', 'HTTP', 'SMTP'),
+          P('The basic job of an OS is multiplexing physical resources. Which technique is NOT in the notes\' list?', 'The notes list time slicing, spooling, paging, reservation and allocation.', 'Compression', 'Spooling', 'Paging', 'Time slicing'),
+          P('A NOS turns physical resources into what, for the processes running under it?', 'Logical resources.', 'Logical resources', 'More hardware', 'Paper records', 'Peer devices'),
+          P('Classify Windows NT, using the tutorial\'s list. It is a:', 'Windows NT is a network operating system.', 'Network operating system', 'Single-user single-task OS', 'Real-time OS', 'Handheld OS')] },
+        rv: [['What a NOS must handle', 'Features of a NOS', 'Remote printers, remote files and who can access them, remote applications, routing, monitoring and security, admin utilities such as SNMP.']],
+        qz: [L(1, 'Features of NOS')('Which is a feature of a NOS in the notes?', 'Routing services, with support for the major protocols.', 'Providing routing services for the major protocols', 'Running only one program at a time', 'Having no user accounts', 'Working without a network'),
+          L(1, 'Features of NOS')('Why does a NOS monitor the system and its security?', 'To protect against viruses, hackers and data corruption.', 'To protect against viruses, hackers and data corruption', 'To make the screen brighter', 'To speed up the bootloader', 'To stop printing'),
+          L(1, 'Functions of NOS')('Which is one of the techniques used to multiplex physical resources?', 'Spooling is one of them.', 'Spooling', 'Defragmenting', 'Encrypting', 'Compiling'),
+          L(1, 'Components of NOS')('The Linux scheduler implements a number of:', 'Scheduling policies that decide when and how long a thread runs on a CPU core.', 'Scheduling policies', 'Printer queues', 'VPN services', 'File permissions')] }
+    ]
+  });
+
+  /* ---------------- World 2 · Lecture 2 ---------------- */
+  window.KT_WORLDS.push({
+    id: 2, name: 'Choosing a Signal System', guide: 'ada', week: 'Lecture 2', unit: 'Basic System Administration', topic: 'NOS history, the four characteristics, built-in tools',
+    intro: 'The railway is choosing a [[signal system|network operating system]]. Learn where the big ones came from, the four qualities they are judged on, and the [[toolbox|built-in management tools]] each one comes with.',
+    outro: 'You can now judge a NOS on stability, security, user-friendliness and robustness, and name its built-in tools.',
+    levels: [
+      { id: '2.1', n: 'Where it all started', k: 't', L: 'bridge',
+        brief: [['ada', 'A NOS exists to share files, printers and applications with many clients over a LAN or a remote connection.'], ['ada', 'Match each system to what the notes say about it.']],
+        pz: { type: 'match', say: 'Pick a system, then the fact about it.', hint: 'UNIX was first. NetWare followed in business. Windows offers NT 4.0 and Active Directory.',
+          pairs: [['UNIX', 'The first NOS, used by universities and research organisations'], ['Linux', 'Open-source OS that UNIX gave rise to'], ['Novell NetWare', 'Popular for commercial use; now uses TCP/IP and web-based admin'], ['Microsoft Windows', 'Offers its NOS in Windows NT 4.0 and Active Directory']] },
+        rv: [['The first networked control system', 'UNIX', 'The first NOS, which gave rise to open-source Linux.'], ['The business favourite', 'Novell NetWare', 'TCP/IP default protocol and web-based administration utilities.']],
+        qz: [L(2, 'Background')('Which was the first NOS, according to the notes?', 'UNIX, used by universities and research organisations.', 'UNIX', 'Windows NT', 'Novell NetWare', 'MS-DOS'),
+          L(2, 'Background')('What is NetWare\'s default protocol in its current version?', 'TCP/IP.', 'TCP/IP', 'SNMP', 'IPX only', 'UDP only'),
+          L(2, 'Background')('Microsoft offers its own NOS in Windows NT 4.0 and:', 'Active Directory.', 'Active Directory', 'Novell Directory', 'NetWare', 'Palm OS'),
+          L(2, 'Background')('What is the purpose of a NOS?', 'To share files, printers and applications with many clients over a LAN or remote access.', 'To share files, printers and applications with many clients', 'To run a single game', 'To replace the hardware', 'To control one printer only')] },
+
+      { id: '2.2', n: 'Four qualities', k: 't', L: 'bridge',
+        brief: [['ada', 'Benchmarks and reviews judge a NOS on four characteristics.'], ['ada', 'Read each complaint from the railway and name the quality it is about.']],
+        pz: { type: 'sort', say: 'Which characteristic is this about?', hint: 'Crashes or latency: stability. Gatekeeping: security. How well tasks and alerts come across to users: user-friendliness. Architecture, fault tolerance, traceability: robustness.',
+          bins: ['Stability', 'Security', 'User-friendliness', 'Robustness'],
+          items: [['The system keeps crashing and is often unusable', 0], ['High latency makes the system inoperable', 0],
+            ['Authentication, encryption and permissions protect the data', 1], ['The NOS must not be the "weakest link" against career hackers', 1],
+            ['Alerts and messages come across clearly to each kind of user', 2], ['Not only the UI: tasks and structures are easy to understand', 2],
+            ['The architecture gives resilience and fault tolerance', 3], ['Traceability helps the system stay healthy', 3]] },
+        rv: [['Does not break down', 'Stability', 'Not prone to errors (latency, crashes) that make it inoperable.'], ['Guards the gate', 'Security', 'Accessibility, authentication, encryption, permissions.'],
+          ['Easy to read and use', 'User-friendliness', 'More than the UI: portrays tasks, alerts and structures well.'], ['Built to survive faults', 'Robustness', 'Architecture supporting resilience and fault tolerance, e.g. traceability.']],
+        qz: [L(2, 'Stability')('Frequent crashes and high latency are problems of:', 'Stability.', 'Stability', 'User-friendliness', 'Security', 'Robustness'),
+          L(2, 'User-friendliness')('The notes say user-friendliness is NOT only about:', 'It is not only the User Interface.', 'The user interface', 'Alerts and messages', 'Showing structures', 'Helping daily tasks'),
+          L(2, 'Robustness')('Fault tolerance and traceability belong to:', 'Robustness.', 'Robustness', 'Stability', 'Security', 'User-friendliness'),
+          L(2, 'Security')('Why is security a core concern for a NOS?', 'A NOS is a gatekeeper to data and applications and connects many stakeholders.', 'It is the gatekeeper to data and applications', 'It makes the screen easier to read', 'It stops the computer booting', 'It only matters for printers')] },
+
+      { id: '2.3', n: 'The toolbox', k: 't', L: 'technical',
+        brief: [['ada', 'Every NOS comes with built-in tools: the administrator\'s Swiss Army knife. Match each tool type to what it does.']],
+        pz: { type: 'match', say: 'Pick a tool type, then its job.', hint: 'Read the names: backup, updates, processes, resources, network, devices, logs, users and groups.',
+          pairs: [['Backup', 'Scheduled backup of data'], ['Updates', 'Manage applying software updates'], ['Processes', 'List and manage running processes'], ['Resources', 'Manage everything within the NOS\'s remit'],
+            ['Network Management', 'Configure network devices and connections to keep connectivity'], ['Device Management', 'Configure connected devices the OS controls'], ['Logs', 'Capture details of activities in the NOS'], ['Users/Groups', 'Manage users and function-specific capabilities']] },
+        rv: [['The Swiss Army knife', 'Built-in management and monitoring tools', 'Proactive and responsive help with admin work; can be added to with third-party software.']],
+        qz: [L(2, 'Types of Tools')('Which tool type captures details about activities within the NOS?', 'Logs.', 'Logs', 'Updates', 'Backup', 'Resources'),
+          L(2, 'Built-in Management & Monitoring Tools')('Built-in tools can be augmented with:', 'Third-party software.', 'Third-party software', 'Nothing at all', 'Only hardware', 'A second NOS'),
+          L(2, 'Types of Tools')('Which tool type manages users and function-specific capabilities?', 'Users/Groups.', 'Users/Groups', 'Processes', 'Device Management', 'Logs'),
+          L(2, 'Built-in Management & Monitoring Tools')('Built-in tools help with which quality of the NOS, according to the notes?', 'The notes say they aid robustness.', 'Robustness', 'Price', 'Screen size', 'Battery life')] },
+
+      { id: '2.4', n: 'Which quality failed?', k: 'b', L: 'technical',
+        brief: [['ada', 'Four incidents on the network today. For each one, name the characteristic or tool involved. Snag is watching.']],
+        pz: { type: 'pick', steps: [
+          P('An attacker reads files because permissions were left open. Which characteristic failed?', 'Permissions are part of security.', 'Security', 'Stability', 'User-friendliness', 'Robustness'),
+          P('Staff ignore an alert because the message is confusing. Which characteristic is weak?', 'Portraying alerts and messages effectively is user-friendliness.', 'User-friendliness', 'Security', 'Robustness', 'Stability'),
+          P('To find out what went wrong overnight, which built-in tool type do you open first?', 'Logs capture specific details of activity.', 'Logs', 'Updates', 'Device Management', 'Backup'),
+          P('A server keeps working after a part fails, and the fault can be traced. Which characteristic is this?', 'Resilience, fault tolerance and traceability are robustness.', 'Robustness', 'User-friendliness', 'Security', 'Stability'),
+          P('Data must be copied every night at 2 a.m. Which tool type is for this?', 'Backup facilitates scheduled backup of data.', 'Backup', 'Processes', 'Logs', 'Users/Groups')] },
+        rv: [['Judging a signal system', 'NOS characteristics', 'Stability, security, user-friendliness, robustness.']],
+        qz: [L(2, 'Characteristics of Prevalent NOS')('Which is NOT one of the four characteristics in the notes?', 'The four are stability, security, user-friendliness and robustness.', 'Price', 'Stability', 'Security', 'Robustness'),
+          L(2, 'Types of Tools')('Which tool type lists running processes and lets you manage them?', 'Processes.', 'Processes', 'Resources', 'Logs', 'Backup'),
+          L(2, 'Stability')('The notes say errors should not be an "Achilles\' heel" for a NOS. Which characteristic is this about?', 'Stability.', 'Stability', 'Security', 'User-friendliness', 'Robustness')] }
+    ]
+  });
+
+  /* ---------------- World 3 · Lecture 3 ---------------- */
+  window.KT_WORLDS.push({
+    id: 3, name: 'The Maintenance Depot', guide: 'gauge', week: 'Lecture 3', unit: 'Basic System Administration', topic: 'Maintenance constructs, SLAs, preventive and corrective maintenance',
+    intro: 'A car is serviced every few months. A network needs attention far more often, even daily. Welcome to [[the depot|network maintenance]].',
+    outro: 'You can now plan preventive maintenance, tell planned from unplanned corrective maintenance, and work out what an SLA promises.',
+    levels: [
+      { id: '3.1', n: 'Three routines', k: 't', L: 'layman',
+        brief: [['gauge', 'Depot work comes in three [[routines|maintenance constructs]]: [[checklists|checklists]], [[timed jobs|scheduling]], and [[copies and restores|backup and recovery]].'], ['gauge', 'Sort each task into its routine.']],
+        pz: { type: 'sort', say: 'Which maintenance construct is this?', hint: 'Done by hand to get a feel for the status: checklist. Set to run automatically at a set time: scheduling. Copies and mock restores: backup and recovery.',
+          bins: ['Checklists', 'Scheduling', 'Backup and recovery'],
+          items: [['The administrator walks through a hands-on status check each morning', 0], ['A manual list of activities that builds the administrator\'s skills', 0],
+            ['A job the NOS runs automatically at a set time', 1], ['Auditing the results of automatic jobs for errors', 1],
+            ['Copying the data, chosen to fit the organisation\'s operations', 2], ['Running a mock recovery to prove the copies work', 2]] },
+        rv: [['Checklists', 'Checklists', 'Manual, interactive, hands-on; gives a sense of the network\'s status.'], ['Timed jobs', 'Scheduling', 'Automatic jobs at set times; check the results.'], ['Copies and restores', 'Backup and recovery', 'Two sides of a coin: back up AND practise recovery. Strategies: full, differential, incremental.']],
+        qz: [L(3, 'Backup & Recovery')('What do administrators rarely do, according to the notes?', 'They back up but rarely conduct a mock recovery.', 'Conduct a mock recovery', 'Back up the system', 'Read the logs', 'Buy new hardware'),
+          L(3, 'Backup & Recovery')('Which three backup strategies do the notes name?', 'Full, differential and incremental.', 'Full, differential, incremental', 'Daily, weekly, yearly', 'Hot, warm, cold', 'Local, remote, cloud'),
+          L(3, 'Scheduling')('Why must scheduled tasks still be checked?', 'To ensure compliance and identify errors.', 'To ensure compliance and find errors', 'Because they never run', 'To slow them down', 'Scheduled tasks need no checking'),
+          L(3, 'Checklists')('Checklists are usually:', 'Manually administered by the administrator.', 'Manually administered by the administrator', 'Fully automatic', 'Run by the CPU scheduler', 'Written by the vendor only')] },
+
+      { id: '3.2', n: 'The service promise', k: 't', L: 'bridge',
+        brief: [['gauge', 'A [[service promise|service-level agreement (SLA)]] says what level of service a customer can expect, how it is measured, and the penalty if it is missed.'],
+          ['gauge', 'A telecom company promises 99.999 % availability. That is just over 5 minutes of downtime a year. Work out a few promises yourself. Use 525,600 minutes in a year.']],
+        pz: { type: 'calc', say: 'Downtime allowed = minutes in a year × (100 − availability %) ÷ 100. A year is 525,600 minutes.', hint: 'For 99.999 %, 100 − 99.999 = 0.001 %, so 525,600 × 0.00001.',
+          fields: [{ l: 'Downtime allowed at 99.999 %, in minutes (2 decimal places)', a: 5.26, tol: 0.02 }, { l: 'Downtime allowed at 99.9 %, in minutes', a: 525.6, tol: 0.2 }, { l: 'Downtime allowed at 99 %, in hours', a: 87.6, tol: 0.1 }],
+          after: 'Each extra 9 cuts the allowed downtime by ten times. 99.999 % allows about 5.26 minutes a year: "just over 5 minutes", as the notes say.' },
+        rv: [['Service promise', 'Service-level agreement (SLA)', 'Expected service level, the metrics, and the remedies or penalties if it is not met. Usually between a company and a supplier, sometimes between departments.']],
+        qz: [L(3, 'Service-Level Agreement')('What does an SLA lay out?', 'The expected service level, the metrics, and remedies or penalties.', 'The service level, how it is measured, and penalties if missed', 'The office opening hours', 'Only the price of hardware', 'The staff holiday rota'),
+          L(3, 'Service-Level Agreement')('An SLA of 99.999 % availability allows about how much downtime a year?', 'Just over 5 minutes.', 'Just over 5 minutes', 'About 5 hours', 'About 5 days', 'None at all'),
+          L(3, 'Service-Level Agreement')('If the service level is not achieved, a customer can usually:', 'Reduce their payment by a percentage, often on a sliding scale.', 'Reduce their payment, often on a sliding scale', 'Get the hardware free', 'Take over the supplier', 'Nothing'),
+          L(3, 'Service-Level Agreement')('SLAs can be between two departments of the same company.', 'Usually company and supplier, but they may also be between departments.', 'True', 'False, only between companies', 'False, only with governments', 'False, only with customers')] },
+
+      { id: '3.3', n: 'When to service', k: 't', L: 'bridge',
+        brief: [['gauge', '[[Servicing before it breaks|Preventive maintenance]] can be scheduled on three bases: time, usage or condition.'], ['gauge', 'Condition-based has two sub-types: predictive and prescriptive. Sort the depot\'s rules.']],
+        pz: { type: 'sort', say: 'What triggers this maintenance?', hint: 'Calendar interval: time. Kilometres, hours, cycles: usage. Sensors and analytics that watch the condition: predictive or prescriptive.',
+          bins: ['Time-based', 'Usage-based', 'Predictive (condition)', 'Prescriptive (condition)'],
+          items: [['Inspect critical equipment every 28 days', 0], ['A check on the first day of every month', 0], ['Service the vehicle every 10,000 km', 1], ['Service after a set number of operating hours or production cycles', 1],
+            ['Temperature and vibration sensors trigger a work order', 2], ['Predict downtime from previous patterns of failure', 2], ['Machine learning recommends a fix AND raises the work order itself', 3], ['AI analytics act on their own predictions and oversee the process', 3]] },
+        rv: [['Calendar servicing', 'Time-based PM', 'A set interval such as every 28 days.'], ['Mileage servicing', 'Usage-based PM', 'When usage hits a benchmark, e.g. every 10,000 km.'],
+          ['Sensors that warn', 'Predictive maintenance', 'Sensors track condition to detect defects before a crash.'], ['Systems that act', 'Prescriptive maintenance', 'Advanced analytics, ML and AI predict AND act, producing work orders.']],
+        qz: [L(3, 'Preventive Maintenance')('Preventive maintenance is performed while the equipment is:', 'Still working, so it does not break unexpectedly.', 'Still working', 'Already broken', 'Switched off for good', 'Being thrown away'),
+          L(3, 'Condition-based Preventive Maintenance')('What are the two sub-categories of condition-based maintenance?', 'Predictive and prescriptive.', 'Predictive and prescriptive', 'Planned and unplanned', 'Time and usage', 'Full and incremental'),
+          L(3, 'Usage-based Preventive Maintenance')('Servicing a vehicle every 10,000 km is:', 'Usage-based.', 'Usage-based', 'Time-based', 'Prescriptive', 'Corrective'),
+          L(3, 'Prescriptive Maintenance')('What does prescriptive maintenance do that predictive does not?', 'It also acts on its predictions and produces the work order.', 'Acts on its predictions and produces the work order', 'Uses a calendar', 'Waits for a breakdown', 'Uses no data')] },
+
+      { id: '3.4', n: 'Plan, do, check, act', k: 't', L: 'bridge',
+        brief: [['gauge', 'Too much maintenance is expensive and risky. The notes tune PM frequency with the PDCA model. Put its steps in order.']],
+        pz: { type: 'order', say: 'Tap the PDCA steps in order.', hint: 'P, D, C, A.',
+          items: ['Plan: set a baseline from OEM guidelines, repair history, criticality and usage', 'Do: follow the plan consistently', 'Check: look at failure metrics for each asset', 'Act: more PMs if it breaks between them, fewer if no failures are found'] },
+        rv: [['Tuning the timetable', 'PDCA model', 'Plan, Do, Check, Act: fine-tunes how often PMs are scheduled.'], ['Depot software', 'CMMS', 'Computerized Maintenance Management System: sets PM triggers, raises work orders, tracks KPIs.']],
+        qz: [L(3, 'Preventive Maintenance Planning')('In the Act step, if an asset breaks down between PMs you should:', 'Increase the frequency of PMs.', 'Increase PM frequency', 'Reduce PM frequency', 'Stop all PMs', 'Replace the CMMS'),
+          L(3, 'Preventive Maintenance Planning')('What does CMMS stand for?', 'Computerized Maintenance Management System.', 'Computerized Maintenance Management System', 'Central Monitoring and Messaging Service', 'Corrective Maintenance Method Standard', 'Customer Maintenance Management Schedule'),
+          L(3, 'Preventive Maintenance Planning')('Once a PM trigger occurs in maintenance software:', 'A work order is created.', 'A work order is created', 'The asset is sold', 'Nothing happens', 'The SLA is cancelled'),
+          L(3, 'Preventive Maintenance Disadvantages')('Which is a disadvantage of preventive maintenance?', 'Overkill: money spent on precautions that are not needed.', 'Overkill: spending on precautions not needed', 'Longer equipment life', 'Less downtime', 'Lower safety risk')] },
+
+      { id: '3.5', n: 'When it breaks', k: 't', L: 'bridge',
+        brief: [['gauge', '[[Repair after a fault|Corrective maintenance]] returns an asset to working order. It can be planned or unplanned.'], ['gauge', 'Sort each case.']],
+        pz: { type: 'sort', say: 'Planned or unplanned corrective maintenance?', hint: 'Run-to-failure on purpose, or a fault found during PM or condition monitoring: planned. A breakdown between scheduled PMs, or a surprise failure with no plan: unplanned.',
+          bins: ['Planned corrective', 'Unplanned corrective'],
+          items: [['A cheap non-critical printer is allowed to run to failure, then replaced', 0], ['A PM inspection finds a worn part, and its repair is scheduled', 0], ['Condition monitoring flags an anomaly and a repair is booked', 0],
+            ['A server breaks down between two scheduled PMs', 1], ['An asset fails unexpectedly and there was no plan to catch it', 1]] },
+        rv: [['Run it until it stops, on purpose', 'Run-to-failure (planned corrective)', 'Only for non-critical, cheap, easily replaced assets, or systems with redundancy.'], ['Surprise breakdown', 'Unplanned corrective maintenance', 'A failure between scheduled PMs, or with no plan to catch it.']],
+        qz: [L(3, 'Corrective Maintenance')('Which is one of the three situations when corrective maintenance occurs?', 'Condition monitoring detects an issue, an inspection finds a fault, or equipment breaks down.', 'When a routine inspection uncovers a potential fault', 'When the SLA is signed', 'When a backup completes', 'When a user logs in'),
+          L(3, 'Planned Corrective Maintenance')('Run-to-failure works only for:', 'Non-critical assets that are cheap and easy to repair, or systems with redundancy.', 'Non-critical, cheap assets or systems with redundancy', 'Critical safety systems', 'Every server', 'The main database'),
+          L(3, 'When to use Corrective Maintenance')('Corrective maintenance suits a failure that:', 'Does not affect safety.', 'Does not affect safety', 'Endangers staff', 'Stops the whole business', 'Breaks the SLA every hour'),
+          L(3, 'Corrective Maintenance')('How can organisations reduce unplanned corrective maintenance?', 'By maximising planned corrective maintenance.', 'By maximising planned corrective maintenance', 'By stopping all inspections', 'By removing redundancy', 'By shortening the SLA')] },
+
+      { id: '3.6', n: 'Depot day', k: 'b', L: 'technical',
+        brief: [['gauge', 'A full day at the depot. Decide each case. Snag is loose in the yard.']],
+        pz: { type: 'pick', steps: [
+          P('Which of these is NOT one of the eight system administration activities in the notes?', 'The eight: change management, documentation, hardware/software inventory, licence details, system health check, application compatibility, logs, automation/scripting.', 'Overclocking the CPU', 'Change management', 'Documentation', 'Application compatibility'),
+          P('Which of these is one of the eight system administration activities in the notes?', 'The eight: change management, documentation, hardware/software inventory, licence details, system health check, application compatibility, logs, automation/scripting.', 'System health check', 'Defragmentation', 'Overclocking', 'Web design'),
+          P('A pump\'s vibration crosses a threshold and maintenance is scheduled. Which type?', 'Maintenance driven by the asset\'s condition.', 'Condition-based preventive', 'Time-based preventive', 'Unplanned corrective', 'Usage-based preventive'),
+          P('Which is an advantage of preventive maintenance?', 'It increases equipment life expectancy.', 'Increased equipment life expectancy', 'No planning needed', 'No staff time needed', 'No budget needed'),
+          P('Maintenance activities are critical to achieving:', 'The notes link maintenance to achieving SLAs.', 'Service-level agreements', 'Higher licence fees', 'Faster bootloaders', 'Peer-to-peer networks'),
+          P('The other name for preventative maintenance in the notes is:', 'Preventative (pre-emptive); corrective (responsive).', 'Pre-emptive', 'Responsive', 'Reactive', 'Run-to-failure')] },
+        rv: [['The depot\'s two jobs', 'Preventive vs corrective', 'Preventive (pre-emptive) stops failure before it happens. Corrective (responsive) fixes it after.']],
+        qz: [L(3, 'Types of Maintenance')('Corrective maintenance is also called:', 'Responsive.', 'Responsive', 'Pre-emptive', 'Predictive', 'Prescriptive'),
+          L(3, 'System Administration Activities')('Keeping track of software licences is which admin activity?', 'Licence details.', 'Licence details', 'Change management', 'Logs', 'Automation'),
+          L(3, 'Preventive Maintenance Advantages')('Preventive maintenance reduces overtime because:', 'Work happens during scheduled hours, not after unexpected breakdowns.', 'Work happens in scheduled hours, not after surprise breakdowns', 'Staff stop working', 'Assets are never used', 'SLAs are cancelled'),
+          L(3, 'Maintenance Constructs')('How often does a network need maintenance attention, compared with a car?', 'More often, even daily.', 'More often, even daily', 'Once every 4 months', 'Once a year', 'Never')] }
+    ]
+  });
+})();

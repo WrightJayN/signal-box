@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Box</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header id="top">
+  <button class="tb" data-act="map" aria-label="Map">Map</button>
+  <span id="crumb">Signal Box</span>
+  <span id="stars" title="Stars earned"></span>
+  <button class="tb" id="lensBtn" data-act="lens" title="Redraw with the real terms (L)">Schematic</button>
+  <button class="tb" data-act="settings" aria-label="Settings">Settings</button>
+</header>
+<main id="app"></main>
+<div id="modal" hidden></div>
+<!-- order matters: helpers, config, content, scenes, engine -->
+<script src="js/helpers.js"></script>
+<script src="js/config.js"></script>
+<script src="js/content/part1.js"></script>
+<script src="js/content/part2.js"></script>
+<script src="js/content/part3.js"></script>
+<script src="js/content/part4.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/engine.js"></script>
+</body>
+</html>
